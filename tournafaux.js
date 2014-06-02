@@ -133,7 +133,7 @@ $(function() {
 				table ++;
 			}
 
-		},
+		}
 	});
 
 	var User = Backbone.Model.extend({
@@ -228,74 +228,6 @@ $(function() {
 	});
 
 	var tournamentSettingsView = new TournamentSettingsView();
-
-	var TournamentRoundView = Backbone.View.extend({
-
-		el: '.page',
-
-		initialize: function() {
-		},
-
-		events: {
-			"click #generate-round": "generateRound"
-		},
-
-		render: function(number) {
-			Players.fetch();
-			Rounds.fetch();
-
-			this.round = _.find(Rounds.models, function(round){ return round.get("number") == "" + number});
-			
-			if (this.round) {
-				var tables = [];
-				var i = 1;
-
-				while (this.round.get('table'+i+'player1')) {
-					var player1 = Players.get(this.round.get('table'+i+'player1'));
-					var player2 = Players.get(this.round.get('table'+i+'player2'));
-					tables.push({number: ""+i,
-						player1name: player1.get('name'),
-						player1vp: player1.get('vp'+number) ? player1.get('vp'+number) : "",
-						player1id: player1.id,
-						player2name: player2.get('name'),
-						player2vp: player2.get('vp'+number) ? player2.get('vp'+number) : "",
-						player2id: player2.id});
-					++i;
-				};
-
-				var template = _.template($('#tournament-round-template').html(), {number: this.round.get('number'), tables: tables});
-		      	this.$el.html(template);
-			} else {
-				var template = _.template($('#tournament-no-round-template').html(), {number: number});
-		      	this.$el.html(template);
-			}
-		},
-
-		registerListeners: function(number) {
-			this.round = _.find(Rounds.models, function(round){ return round.get("number") == "" + number});
-
-			if (this.round) {
-				_.each(Players.models, function(player) {
-					this.$("#" + player.id).change(function(event) {
-						player.set("vp"+number, event.currentTarget.value);
-						player.save();
-					});
-				});
-				
-			}
-		},
-
-		generateRound: function() {
-			//TODO validation
-			var number = parseInt(this.round.get('number')) + 1;
-			Rounds.newRound(number, this.$("#rounds").val());
-			router.navigate("#/round/"+ number);
-			return false;
-		},
-
-	});
-
-	var tournamentRoundView = new TournamentRoundView();
 
 	var Router = Backbone.Router.extend({
 	    routes: {
