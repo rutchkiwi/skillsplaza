@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tournafaux - Malifaux tournament planner</title>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 </head>
@@ -10,8 +11,31 @@
 
   <div class="container">
     <h1>Tournament planner</h1>
-    <div id="tournament-nav"></div>
-    <div class="page"></div>
+    <div class="row">
+      <div class="col-md-8">
+        <div id="tournament-nav"></div>
+        <div class="page"></div>
+        <hr/>
+      </div>
+      <div class="col-md-4">
+        <!--<p>
+          Hi! My name is Bennie, <a href="http://wyrd-games.net/community/user/20217-egoon/">egoon on the Wyrd forums</a>, and I'm a henchman in Stockholm, Sweden. I created this tournament planner on my spare time, for fun. If you have questions, issues, feedback or want to support me in this project in some other way, please see the links below. Cheers!
+        </p>-->
+        <p><a href="https://github.com/egoon/tournafaux/wiki">Wiki</a></p>
+        <!--<p><a href="">Feedback</a></p>-->
+        <p><a href="https://github.com/egoon/tournafaux/issues">
+        Bugs and Feature requests</a></p>
+        <!--<p>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+          <input type="hidden" name="cmd" value="_s-xclick">
+          <input type="hidden" name="hosted_button_id" value="CKC9L6HWPSVEC">
+          <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+          <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </form>-->
+
+        </p>
+      </div>
+    </div>
   </div>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
@@ -69,9 +93,9 @@
             <tr>
               <td><%= table.number %></td>
               <td><%= table.player1name %></td>
-              <td><input name="<%= table.player1id %>" value="<%= table.player1vp %>" class="form-control" 
+              <td><input id="<%= table.player1id %>" value="<%= table.player1vp %>" class="form-control" 
                 style="width:50px" /></td>
-              <td><input name="<%= table.player2id %>" value="<%= table.player2vp %>" class="form-control" 
+              <td><input id="<%= table.player2id %>" value="<%= table.player2vp %>" class="form-control" 
                 style="width:50px"/></td>
               <td><%= table.player2name %></td>
               
@@ -79,6 +103,12 @@
           <% }); %>
         <tbody>
       </table>
+      <button type="button" id="generate-round" class="btn btn-primary">Generate round <%= parseInt(number) + 1 %></button>
+  </script>
+
+  <script type="text/template" id="tournament-no-round-template">
+      <h4>Round <%=number %> does not exist</h4>
+      Sorry!
   </script>
 
   <script src="tournafaux.js"></script>
