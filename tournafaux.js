@@ -138,18 +138,10 @@ $(function() {
 
 	var User = Backbone.Model.extend({
 
-	
+		localStorage: new Backbone.LocalStorage("tournafaux-user"),	
 
 	});
 
-	var UserList = Backbone.Collection.extend({
-
-		model: User,
-
-		localStorage: new Backbone.LocalStorage("tournafaux-user"),
-	});
-
-	var Users = new UserList();
 
 	var Rounds = new RoundList();
 
@@ -175,26 +167,19 @@ $(function() {
 		
 			Players.fetch();
 			Rounds.fetch();
-			Users.fetch();
-			
-
-			
-
 		},
 
 		updateName: function() {
 			console.log(this.$("#rounds").val());
 			this.$("#userName").html("New user: " + this.$("#rounds").val());
 			this.user.set('name', this.$("#rounds").val());
+			this.user.save();
 		},
 		
 		render: function(options) {
-			var user;
-			// if (Users.models.length > 0)
-			// 	user = Users.models.get();
-			// else
-			// 	user = Users.create({name: ""});
-			var template = _.template($('#tournament-settings-template').html(), {players: Players.models});
+			this.user = new User({id: "1", name: ""});
+			this.user.fetch();
+			var template = _.template($('#tournament-settings-template').html(), {players: Players.models, name: this.user.get('name')});
 	      	this.$el.html(template);
 	      	this.newPlayer = this.$("#new-player");
 		},
