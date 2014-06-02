@@ -14,6 +14,7 @@
       <div class="col-md-12">
         <div id="tournament-nav"></div>
         <div class="page"></div>
+        <div class="secondary"> </div>
         <hr/>
       </div>
      
@@ -43,7 +44,7 @@
       </div>  
       <table class="table table-striped">
         <thead>
-          <tr><th>Skills</th><th>Remove</th</tr>
+          <tr><th>Primary Skills</th><th>Remove</th</tr>
         </thead>
         <tbody id="player-table">
           
@@ -65,34 +66,33 @@
   	
   </script>
 
-  <script type="text/template" id="tournament-round-template">
-      <h4>Round <%=number %></h4>
-      <table class="table table-striped" style="width:auto">
-        <theader>
-          <tr><th>Table</th><th>Player 1</th><th>VP</th><th>VP</th><th>Player 2</th></tr>
-        </theader>
-        <tbody>
-          <% _.each(tables, function(table) { %>
+   <script type="text/template" id="desired-skills-template">
+    <form class="form-inline tournament-settings-form" role="form">
+      <table class="table table-striped">
+        <thead>
+          <tr><th>Desired Skills</th><th>Remove</th</tr>
+        </thead>
+        <tbody id="player-table">
+          
+          <% _.each(players, function(player) { %>
             <tr>
-              <td><%= table.number %></td>
-              <td><%= table.player1name %></td>
-              <td><input id="<%= table.player1id %>" value="<%= table.player1vp %>" class="form-control" 
-                style="width:50px" /></td>
-              <td><input id="<%= table.player2id %>" value="<%= table.player2vp %>" class="form-control" 
-                style="width:50px"/></td>
-              <td><%= table.player2name %></td>
-              
+              <td><%= player.get('name') %></td>
+              <td><button type="button" class="btn btn-danger removePlayer" id="<%=player.id %>">X</button></td> 
             </tr>
           <% }); %>
-        <tbody>
+          <tr>
+            <td><input id="new-player" class="form-control" name="player" type="text" />
+            </td><td></td>
+          </tr>
+        </tbody>
       </table>
-      <button type="button" id="generate-round" class="btn btn-primary">Generate round <%= parseInt(number) + 1 %></button>
+      
+      
+    </form>
+    
   </script>
 
-  <script type="text/template" id="tournament-no-round-template">
-      <h4>Round <%=number %> does not exist</h4>
-      Sorry!
-  </script>
+ 
 
   <script src="tournafaux.js"></script>
 
