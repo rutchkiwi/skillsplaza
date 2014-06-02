@@ -15,6 +15,7 @@
       <div class="col-md-12">
         <div id="tournament-nav"></div>
         <div class="page"></div>
+        <div class="secondary"> </div>
         <hr/>
       </div>
      
@@ -43,7 +44,7 @@
       </div>  
       <table class="table table-striped">
         <thead>
-          <tr><th>Skills</th><th>Remove</th</tr>
+          <tr><th>Primary Skills</th><th>Remove</th</tr>
         </thead>
         <tbody id="player-table">
           
@@ -63,6 +64,32 @@
       
     </form>
   	
+  </script>
+
+   <script type="text/template" id="desired-skills-template">
+    <form class="form-inline tournament-settings-form" role="form">
+      <table class="table table-striped">
+        <thead>
+          <tr><th>Desired Skills</th><th>Remove</th</tr>
+        </thead>
+        <tbody id="player-table">
+          
+          <% _.each(players, function(player) { %>
+            <tr>
+              <td><%= player.get('name') %></td>
+              <td><button type="button" class="btn btn-danger removePlayer" id="<%=player.id %>">X</button></td> 
+            </tr>
+          <% }); %>
+          <tr>
+            <td><input id="new-player" class="form-control" name="player" type="text" />
+            </td><td></td>
+          </tr>
+        </tbody>
+      </table>
+      
+      
+    </form>
+    
   </script>
 
   <script type="text/template" id="tournament-round-template">
