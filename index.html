@@ -16,6 +16,7 @@
         <div id="tournament-nav"></div>
         <div class="page"></div>
         <div class="secondary"> </div>
+        <div class="desired"> </div>
         <hr/>
       </div>
      
@@ -36,7 +37,7 @@
   </script>
 
   <script type="text/template" id="tournament-settings-template">
-  	<h4 id="userName">New user: <%= name %></h4>
+  	<h1 id="userName"><%= name %></h1>
     <form class="form-inline tournament-settings-form" role="form">
       <div class="form-group">
         <label for="rounds">Name</label>
@@ -44,7 +45,7 @@
       </div>  
       <table class="table table-striped">
         <thead>
-          <tr><th>Primary Skills</th><th>Remove</th</tr>
+          <tr><th>Primary Skills</th><th>Remove</th></tr>
         </thead>
         <tbody id="player-table">
           
@@ -52,6 +53,7 @@
             <tr>
               <td><%= player.get('name') %></td>
               <td><button type="button" class="btn btn-danger removePlayer" id="<%=player.id %>">X</button></td> 
+              
             </tr>
           <% }); %>
           <tr>
@@ -71,6 +73,33 @@
       <table class="table table-striped">
         <thead>
           <tr><th>Desired Skills</th><th>Remove</th</tr>
+        </thead>
+        <tbody id="player-table">
+          
+          <% _.each(players, function(player) { %>
+            <tr>
+              <td><%= player.get('name') %></td>
+              <td><button type="button" class="btn btn-danger removePlayer" id="<%=player.id %>">X</button></td> 
+            </tr>
+          <% }); %>
+          <tr>
+            <td><input id="new-player" class="form-control" name="player" type="text" />
+            </td><td></td>
+          </tr>
+        </tbody>
+      </table>
+      
+      
+    </form>
+    
+  </script>
+
+
+   <script type="text/template" id="secondary-skills-template">
+    <form class="form-inline tournament-settings-form" role="form">
+      <table class="table table-striped">
+        <thead>
+          <tr><th>Secondary Skills</th><th>Remove</th</tr>
         </thead>
         <tbody id="player-table">
           

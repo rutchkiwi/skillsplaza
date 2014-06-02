@@ -30,6 +30,15 @@ $(function() {
 
 	});
 
+	var Wanted = Backbone.Model.extend({});
+
+	var WantedList = Backbone.Collection.extend({
+
+		model: Wanted,
+		localStorage: new Backbone.LocalStorage("tournafaux-wanted"),	
+	});
+
+	var Wanteds = new WantedList();
 
 	var TournamentSettingsView = Backbone.View.extend({
 		
@@ -57,7 +66,7 @@ $(function() {
 
 		updateName: function() {
 			console.log(this.$("#rounds").val());
-			this.$("#userName").html("New user: " + this.$("#rounds").val());
+			this.$("#userName").html(this.$("#rounds").val());
 			this.user.set('name', this.$("#rounds").val());
 			this.user.save();
 		},
@@ -68,6 +77,14 @@ $(function() {
 			var template = _.template($('#tournament-settings-template').html(), {players: Players.where({type: "primary"}), name: this.user.get('name')});
 	      	this.$el.html(template);
 	      	this.newPlayer = this.$("#new-player");
+	      	var that = this;
+	      	_.each(Players.where({type: "primary"}), function(skill) {
+	      		that.$("#" + skill.id + "-wanted").change(function(e){
+	      			Wanteds.create({name: that.$("#" + skill.id + "-wanted").val(), skill: skill.get('name')});
+	      			that.$("#" + skill.id + "-wanted").val("");
+	      		});
+	      	});
+
 		},
 
 		createOnEnter: function(e) {
@@ -92,7 +109,7 @@ $(function() {
 
 	var DesiredSkillsView = TournamentSettingsView.extend({
 
-		el: '.secondary',
+		el: '.desired',
 
 		render: function(options) {
 			
@@ -113,6 +130,29 @@ $(function() {
 
 	var desiredSkillsView = new DesiredSkillsView();
 
+	var SecondarySkillsView = TournamentSettingsView.extend({
+
+		el: '.secondary',
+
+		render: function(options) {
+			
+			var template = _.template($('#secondary-skills-template').html(), {players: Players.where({type: "secondary"})});
+	      	this.$el.html(template);
+	      	this.newPlayer = this.$("#new-player");
+		},
+
+		createOnEnter: function(e) {
+			if (e.keyCode != 13) return;
+			if (!this.newPlayer.val()) return;
+			Players.create({name: this.newPlayer.val(), type:"secondary"});
+			this.newPlayer.val('');
+			this.newPlayer.focus();
+		},
+
+	});
+
+	var secondarySkillsView = new SecondarySkillsView();
+
 	var Router = Backbone.Router.extend({
 	    routes: {
 	      "": "settings",
@@ -124,6 +164,7 @@ $(function() {
 	router.on('route:settings', function() {
 	  tournamentSettingsView.render({userId: "1"});
 	  desiredSkillsView.render({userId: "1"});
+	  secondarySkillsView.render({userId: "1"});
 	});
 	router.on('route:round', function(number) {
 		tournamentRoundView.render(number);
