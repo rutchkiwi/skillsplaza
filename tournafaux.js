@@ -76,8 +76,6 @@ $(function() {
 	});
 
 
-	var Rounds = new RoundList();
-
 	var TournamentSettingsView = Backbone.View.extend({
 		
 		el: '.page',
