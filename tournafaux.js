@@ -67,74 +67,7 @@ $(function() {
 	var Players = new PlayerList;
 
 
-	var Round = Backbone.Model.extend({
-		
-		initialize: function() {
-      		if (!this.get("number")) {
-        		this.set({"number": "666"});
-      		}
-    	},
-	});
-
-	var RoundList = Backbone.Collection.extend({
-
-		model: Round,
-
-		localStorage: new Backbone.LocalStorage("tournafaux-rounds"),
-
-		newRound: function(number, maxNumber) {
-
-
-
-			var round = _.find(this.models, function(round){ return round.get("number") == ""+number});
-			
-			if (!round) {
-				round = this.create({number: ""+number, maxNumber: maxNumber});
-			} else {
-				_.each(Players.models, function(p) {p.unset("opponent"+number)});
-			}
-
-			
-
-			// Create bye if needed
-			if (Players.models.length % 2 == 1)
-				Players.create({id:"0", name:"-"});
-
-
-			var players = Players.models;
-
-			players = _.shuffle(players);
-
-			players = _.sortBy(players, function(p) {return p.getTotalVp()});
-			players = _.sortBy(players, function(p) {return p.getVpDiff()});
-			players = _.sortBy(players, function(p) {return p.getTotalTp()});
-
-			var table = 1;
-			while(players.length > 0) {
-				var p1 = players.pop();
-				var p2 = players.pop();
-				
-				var prevOpps = [];
-
-				while(_.indexOf(p1.getPreviousOpponents(), p2.id) >= 0) {
-					prevOpps.push(p2);
-					p2 = players.pop();
-				}
-				while(prevOpps.length > 0)
-					players.push(prevOpps.pop());
-
-				p1.set("opponent" + number, p2.id);
-				p1.save();
-				p2.set("opponent" + number, p1.id);
-				p2.save();
-				round.set("table"+table+"player1", p1.id);
-				round.set("table"+table+"player2", p2.id);
-				round.save();
-				table ++;
-			}
-
-		}
-	});
+	
 
 	var User = Backbone.Model.extend({
 

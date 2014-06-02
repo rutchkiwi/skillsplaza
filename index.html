@@ -92,34 +92,7 @@
     
   </script>
 
-  <script type="text/template" id="tournament-round-template">
-      <h4>Round <%=number %></h4>
-      <table class="table table-striped" style="width:auto">
-        <theader>
-          <tr><th>Table</th><th>Player 1</th><th>VP</th><th>VP</th><th>Player 2</th></tr>
-        </theader>
-        <tbody>
-          <% _.each(tables, function(table) { %>
-            <tr>
-              <td><%= table.number %></td>
-              <td><%= table.player1name %></td>
-              <td><input id="<%= table.player1id %>" value="<%= table.player1vp %>" class="form-control" 
-                style="width:50px" /></td>
-              <td><input id="<%= table.player2id %>" value="<%= table.player2vp %>" class="form-control" 
-                style="width:50px"/></td>
-              <td><%= table.player2name %></td>
-              
-            </tr>
-          <% }); %>
-        <tbody>
-      </table>
-      <button type="button" id="generate-round" class="btn btn-primary">Generate round <%= parseInt(number) + 1 %></button>
-  </script>
-
-  <script type="text/template" id="tournament-no-round-template">
-      <h4>Round <%=number %> does not exist</h4>
-      Sorry!
-  </script>
+ 
 
   <script src="tournafaux.js"></script>
 
