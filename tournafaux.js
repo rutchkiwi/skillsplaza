@@ -7,52 +7,7 @@ $(function() {
       		if (!this.get("name")) {
         		this.set({"name": "No name?"});
       		}
-    	},
-
-    	getPreviousOpponents: function() {
-    		var i = 1;
-    		var opponents = [];
-    		while (this.get("opponent"+i)) {
-    			opponents.push(this.get("opponent"+i))
-    			i++;
-    		}
-    		return opponents;
-    	},
-
-    	countPointsWithBye: function(pointType, byeScore) {
-    		var i = 1;
-			var total = 0;
-    		var bye = false;
-    		var realGames = 0;
-    		while(this.get(pointType+i)) {
-    			if (this.get(pointType+i) === "-") {
-    				bye = true;
-    			} else {
-    				total += parseInt(this.get(pointType+i));
-    				realGames += 1;
-    			}
-    			i++;
-    		}
-    		if (bye) {
-    			if (realGames == 0)
-    				total = byeScore;
-    			else
-    				total += (total / realGames);
-    		}
-    		return total;
-    	},
-
-    	getTotalTp: function() {
-    		return this.countPointsWithBye("tp", 3);
-    	},
-
-    	getTotalVp: function() {
-    		return this.countPointsWithBye("vp", 5);
-    	},
-
-    	getVpDiff: function() {
-    		return this.countPointsWithBye("vpdiff", 1);
-    	},
+    	}
 
 	});
 
@@ -76,8 +31,6 @@ $(function() {
 	});
 
 
-	
-
 	var TournamentSettingsView = Backbone.View.extend({
 		
 		el: '.page',
@@ -99,7 +52,7 @@ $(function() {
 			// this.listenTo(router, 'route:settings', this.render);
 		
 			Players.fetch();
-			
+
 		},
 
 		updateName: function() {
