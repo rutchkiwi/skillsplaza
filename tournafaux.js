@@ -76,7 +76,7 @@ $(function() {
 	});
 
 
-	var Rounds = new RoundList();
+	
 
 	var TournamentSettingsView = Backbone.View.extend({
 		
@@ -99,7 +99,7 @@ $(function() {
 			// this.listenTo(router, 'route:settings', this.render);
 		
 			Players.fetch();
-			Rounds.fetch();
+			
 		},
 
 		updateName: function() {
@@ -126,23 +126,13 @@ $(function() {
 		},
 
 		removePlayer: function(e) {
-			if (Rounds.models.length > 0) {
-				if (confirm("This will destroy all generated rounds!")) {
-					Players.get(e.currentTarget.id).destroy();
-					_.each(Rounds.models, function(round) { round.destroy(); });
-				}
-			} else 
+			
 				Players.get(e.currentTarget.id).destroy();
 
 			return false;
 		},
 
-		generateRound: function() {
-			//TODO validation
-			Rounds.newRound(1, this.$("#rounds").val());
-			router.navigate("#/round/1");
-			return false;
-		}
+		
 	});
 
 	var tournamentSettingsView = new TournamentSettingsView();
@@ -179,8 +169,8 @@ $(function() {
 
 	var router = new Router;
 	router.on('route:settings', function() {
-	  tournamentSettingsView.render({});
-	  desiredSkillsView.render();
+	  tournamentSettingsView.render({userId: "1"});
+	  desiredSkillsView.render({userId: "1"});
 	});
 	router.on('route:round', function(number) {
 		tournamentRoundView.render(number);
