@@ -35,11 +35,11 @@
   </script>
 
   <script type="text/template" id="tournament-settings-template">
-  	<h4>Add user</h4>
+  	<h4 id="userName">New user: <%= name %></h4>
     <form class="form-inline tournament-settings-form" role="form">
       <div class="form-group">
         <label for="rounds">Name</label>
-        <input class="form-control " id="rounds" name="rounds" type="text" value="3" />
+        <input class="form-control " id="rounds" name="rounds" type="text" />
       </div>  
       <table class="table table-striped">
         <thead>

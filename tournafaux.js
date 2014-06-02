@@ -136,6 +136,21 @@ $(function() {
 		},
 	});
 
+	var User = Backbone.Model.extend({
+
+	
+
+	});
+
+	var UserList = Backbone.Collection.extend({
+
+		model: User,
+
+		localStorage: new Backbone.LocalStorage("tournafaux-user"),
+	});
+
+	var Users = new UserList();
+
 	var Rounds = new RoundList();
 
 	var TournamentSettingsView = Backbone.View.extend({
@@ -143,10 +158,14 @@ $(function() {
 		el: '.page',
 
 		events: {
+			"change #rounds": "updateName",
+
 			"keypress #new-player": "createOnEnter",
 			"click button.removePlayer": "removePlayer",
 			"click #generate-round": "generateRound"
 		},
+
+		model: User,
 		
 		initialize: function() {
 			this.listenTo(Players, 'add', this.render);
@@ -156,10 +175,25 @@ $(function() {
 		
 			Players.fetch();
 			Rounds.fetch();
+			Users.fetch();
+			
 
+			
+
+		},
+
+		updateName: function() {
+			console.log(this.$("#rounds").val());
+			this.$("#userName").html("New user: " + this.$("#rounds").val());
+			this.user.set('name', this.$("#rounds").val());
 		},
 		
 		render: function(options) {
+			var user;
+			// if (Users.models.length > 0)
+			// 	user = Users.models.get();
+			// else
+			// 	user = Users.create({name: ""});
 			var template = _.template($('#tournament-settings-template').html(), {players: Players.models});
 	      	this.$el.html(template);
 	      	this.newPlayer = this.$("#new-player");
