@@ -3,38 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tournafaux - Malifaux tournament planner</title>
+  <title>skillzPlaza</title>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 </head>
 <body>
 
 
   <div class="container">
-    <h1>Tournament planner</h1>
+    <h1>skillzPlaza</h1>
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-12">
         <div id="tournament-nav"></div>
         <div class="page"></div>
         <hr/>
       </div>
-      <div class="col-md-4">
-        <!--<p>
-          Hi! My name is Bennie, <a href="http://wyrd-games.net/community/user/20217-egoon/">egoon on the Wyrd forums</a>, and I'm a henchman in Stockholm, Sweden. I created this tournament planner on my spare time, for fun. If you have questions, issues, feedback or want to support me in this project in some other way, please see the links below. Cheers!
-        </p>-->
-        <p><a href="https://github.com/egoon/tournafaux/wiki">Wiki</a></p>
-        <!--<p><a href="">Feedback</a></p>-->
-        <p><a href="https://github.com/egoon/tournafaux/issues">
-        Bugs and Feature requests</a></p>
-        <!--<p>
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-          <input type="hidden" name="cmd" value="_s-xclick">
-          <input type="hidden" name="hosted_button_id" value="CKC9L6HWPSVEC">
-          <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-          <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-        </form>-->
-
-        </p>
-      </div>
+     
     </div>
   </div>
 
@@ -52,15 +35,15 @@
   </script>
 
   <script type="text/template" id="tournament-settings-template">
-  	<h4>Tournament settings</h4>
+  	<h4>Add user</h4>
     <form class="form-inline tournament-settings-form" role="form">
       <div class="form-group">
-        <label for="rounds">Rounds</label>
+        <label for="rounds">Name</label>
         <input class="form-control " id="rounds" name="rounds" type="text" value="3" />
       </div>  
       <table class="table table-striped">
         <thead>
-          <tr><th>Player name</th><th>Remove</th</tr>
+          <tr><th>Skills</th><th>Remove</th</tr>
         </thead>
         <tbody id="player-table">
           
@@ -76,7 +59,7 @@
           </tr>
         </tbody>
       </table>
-      <button type="button" id="generate-round" class="btn btn-primary">Generate round 1</button>
+      
       
     </form>
   	
